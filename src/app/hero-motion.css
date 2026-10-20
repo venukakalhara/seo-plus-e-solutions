@@ -1,0 +1,12 @@
+.hero-motion-layer{position:absolute;z-index:-2;pointer-events:none;overflow:hidden}
+.hero-motion-layer>canvas,.hero-motion-layer>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.matched-hero-shade{z-index:-1}
+.hero-motion-layer[data-enabled=false]{visibility:hidden}
+.orbit-light-track path{animation:orbit-travel 18s linear infinite}
+.orbit-light-1 path{animation-duration:24s;animation-delay:-9s}
+.orbit-light-2 path{animation-duration:21s;animation-delay:-15s}
+.hero-motion-layer[data-visible=false] .orbit-light-track path{animation-play-state:paused}
+.hero-motion-toggle{position:absolute;bottom:13px;right:24px;z-index:4;display:flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #ffffff30;border-radius:18px;background:#060a11c9;color:#dfd4b2;font-size:9px;backdrop-filter:blur(10px)}
+.hero-motion-toggle:hover{border-color:#e5c560}
+@keyframes orbit-travel{to{stroke-dashoffset:-1000}}
+@media(prefers-reduced-motion:reduce){.hero-motion-layer{display:none}}

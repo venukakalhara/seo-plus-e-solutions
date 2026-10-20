@@ -1,6 +1,6 @@
 /* The full logo is framed by an SVG viewBox, not clipped by a fixed-height box. */
 .brand{align-items:center}
-.brand-art{display:block;width:100%;height:auto;overflow:visible;mix-blend-mode:screen;flex-shrink:0}
+.brand-art{display:block;width:100%;height:auto;overflow:hidden;mix-blend-mode:screen;flex-shrink:0}
 .site-header .brand-art{max-height:79px}
 .matched-services{background:#070b10;padding-bottom:52px}
 .matched-services:before{background:radial-gradient(ellipse at 50% 0,#b38b1910,transparent 65%),linear-gradient(140deg,#070b10,#090e15 55%,#05080c);opacity:1}

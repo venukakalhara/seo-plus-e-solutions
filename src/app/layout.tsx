@@ -5,6 +5,7 @@ import './store-admin.css';
 import './fonts.css';
 import './reference-design.css';
 import './home-experience.css';
+import './hero-motion.css';
 import { site } from '@/lib/site';
 import { LanguageProvider } from '@/components/language';
 

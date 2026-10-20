@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChartNoAxesCombined, Code2, Globe, Megaphone, Search, Settings, CirclePlay, X, Pause, Play, RotateCcw } from 'lucide-react';
 import { useLanguage } from './language';
 import { Stats } from './stats';
+import { HeroMotion } from './hero-motion';
 
 const services = [
   {icon:Globe,name:['Web Development','වෙබ් අඩවි නිර්මාණය'],text:['Modern, high-performance websites tailored to your business needs.','ඔබේ ව්‍යාපාරයේ අවශ්‍යතාවන්ට ගැළපෙන නවීන, කාර්යක්ෂම වෙබ් අඩවි.']},
@@ -14,11 +15,12 @@ const services = [
   {icon:Search,name:['SEO Solutions','SEO විසඳුම්'],text:['Improve your search rankings and drive organic growth.','ඔබේ සෙවුම් ස්ථාන දියුණු කර ස්වාභාවික වර්ධනයක් ඇති කරන්න.']},
 ];
 
-export function ReferenceHome() {
+export function ReferenceHome({motion=false,onToggleMotion}:{motion?:boolean;onToggleMotion?:()=>void}) {
  const {t}=useLanguage();
  return <div className="reference-home">
   <section className="matched-hero">
    <Image className="matched-hero-art" src="/hero-reference-v2.png" alt="" fill priority sizes="100vw"/>
+   <HeroMotion enabled={motion}/>
    <div className="matched-hero-shade"/>
    <div className="reference-container matched-hero-inner">
     <div className="matched-hero-copy">
@@ -35,6 +37,7 @@ export function ReferenceHome() {
      <Link href="/solutions" className="expertise-badge badge-automation"><Settings/><span>{t('Automation','ස්වයංක්‍රීය')}<br/>{t('Solutions','විසඳුම්')}</span></Link>
     </div>
    </div>
+   {onToggleMotion&&<button className="hero-motion-toggle" onClick={onToggleMotion} aria-pressed={!motion}>{motion?<Pause size={13}/>:<Play size={13}/>} {t(motion?'Pause animation':'Play animation',motion?'චලනය නවත්වන්න':'චලනය අරඹන්න')}</button>}
   </section>
   <section className="matched-services">
    <div className="reference-container">

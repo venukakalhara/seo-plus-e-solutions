@@ -29,7 +29,7 @@ export function HomeExperience() {
   return()=>{observer.disconnect();elements.forEach(e=>e.classList.remove('reveal-pending'));document.removeEventListener('focusin',focus);};
  },[motion]);
  return <div ref={root} className="home-experience" data-motion={motion?'on':'off'}>
-  <ReferenceHome/>
+  <ReferenceHome motion={motion} onToggleMotion={()=>setMotion(!motion)}/>
   <div className="home-capabilities"><div className="reference-container"><div className="capability-items">{[[Code2,'BUILD','නිර්මාණය'],[Search,'GROW','වර්ධනය'],[Workflow,'AUTOMATE','ස්වයංක්‍රීයකරණය'],[Package,'SUBSCRIBE','දායකත්ව']].map(([Icon,en,si],i)=>{const Symbol=Icon as typeof Code2;return <span key={i}><Symbol size={17}/>{t(en as string,si as string)}</span>;})}</div><button className="motion-control" onClick={()=>setMotion(!motion)} aria-pressed={!motion}>{motion?<Pause size={13}/>:<Play size={13}/>} {t(motion?'Pause motion':'Enable motion',motion?'චලන නවත්වන්න':'චලන සක්‍රිය කරන්න')}</button></div></div>
 
   <section className="home-section home-partner">
