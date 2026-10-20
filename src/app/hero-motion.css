@@ -8,6 +8,11 @@
 .hero-motion-layer[data-visible=false] .orbit-light-track path{animation-play-state:paused}
 .hero-motion-toggle{position:absolute;bottom:13px;right:24px;z-index:4;display:flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #ffffff30;border-radius:18px;background:#060a11c9;color:#dfd4b2;font-size:9px;backdrop-filter:blur(10px)}
 .hero-motion-toggle:hover{border-color:#e5c560}
+.logo-visible-sweep{animation:logo-visible-sweep 3.8s ease-in-out infinite;animation-delay:-.9s}
+.logo-breathing-halo{animation:logo-breathing-halo 3.8s ease-in-out infinite;mix-blend-mode:screen}
+.hero-motion-layer[data-visible=false] .logo-visible-sweep,.hero-motion-layer[data-visible=false] .logo-breathing-halo{animation-play-state:paused}
+@keyframes logo-visible-sweep{0%{transform:translateX(0);opacity:0}12%{opacity:1}76%{transform:translateX(465px);opacity:1}90%,100%{transform:translateX(465px);opacity:0}}
+@keyframes logo-breathing-halo{0%,100%{opacity:.12}45%{opacity:.65}70%{opacity:.28}}
 @media(max-width:800px){.hero-motion-toggle{left:20px;right:auto;bottom:12px;min-height:36px;padding-inline:13px}}
 @keyframes orbit-travel{to{stroke-dashoffset:-1000}}
 @media(prefers-reduced-motion:reduce){.hero-motion-layer{display:none}}

@@ -17,14 +17,8 @@ uniform float elapsed;
 float laptop(vec2 p){
  return step(287.-.18*(p.x-1291.),p.y)*step(1291.-.21*(p.y-287.),p.x);
 }
-float logoLight(vec2 p){
- vec3 c=texture2D(photograph,p/vec2(1912.,823.)).rgb;
- return smoothstep(.36,.82,max(c.r,max(c.g,c.b)));
-}
 void main(){
  vec2 pixel=vec2(uv.x,1.-uv.y)*vec2(1912.,823.);
- vec2 originalUV=pixel/vec2(1912.,823.);
- vec4 original=texture2D(photograph,originalUV);
  vec2 n=(pixel-vec2(1249.,388.))/vec2(250.,253.);
  float radius=length(n);
  float globe=(1.-smoothstep(.89,.98,radius))*(1.-laptop(pixel));
@@ -34,20 +28,7 @@ void main(){
  vec2 samplePixel=vec2(1249.,388.)+shifted*vec2(250.,253.);
  globe*=1.-laptop(samplePixel);
  vec4 earth=texture2D(photograph,samplePixel/vec2(1912.,823.));
- // A diagonal sweep and breathing halo reveal the original logo's contours.
- // Unlike simply brightening white letters, the halo remains visible on black.
- float sweep=exp(-pow((pixel.x+.3*(pixel.y-420.)-(1260.+mod(elapsed*74.,440.)))/35.,2.));
- float logo=smoothstep(1295.,1310.,pixel.x)*(1.-smoothstep(1600.,1620.,pixel.x))*smoothstep(315.,332.,pixel.y)*(1.-smoothstep(510.,530.,pixel.y));
- float light=logoLight(pixel);
- float blur=(logoLight(pixel+vec2(5.,0.))+logoLight(pixel-vec2(5.,0.))+logoLight(pixel+vec2(0.,5.))+logoLight(pixel-vec2(0.,5.))+logoLight(pixel+vec2(4.,4.))+logoLight(pixel-vec2(4.,4.))+logoLight(pixel+vec2(-4.,4.))+logoLight(pixel+vec2(4.,-4.)))/8.;
- float halo=max(0.,blur-light*.55);
- float breathe=.55+.45*sin(elapsed*1.05);
- float shimmer=logo*clamp(halo*(.55+.45*breathe)+light*sweep*.85,0.,.9);
- vec3 warm=mix(original.rgb,vec3(1.,.87,.57),light*sweep*.18);
- vec3 lit=min(vec3(1.),warm+vec3(1.,.66,.16)*halo*(.45+.4*breathe)+vec3(.18,.14,.06)*sweep*light);
- float alpha=max(globe,shimmer);
- vec3 color=mix(lit,earth.rgb,step(shimmer,globe));
- gl_FragColor=vec4(color,alpha);
+ gl_FragColor=vec4(earth.rgb,globe);
 }
 `;
 
@@ -131,6 +112,20 @@ export function HeroMotion({ enabled }: { enabled: boolean }) {
      'M 906 650 C 1020 471 1390 128 1642 108 C 1860 85 1780 454 1496 633 C 1250 790 826 775 906 650 Z',
      'M 1034 559 C 879 344 902 149 1100 111 C 1305 74 1525 330 1515 522 C 1505 731 1185 763 1034 559 Z',
     ].map((d,i)=><g key={d} className={`orbit-light-track orbit-light-${i}`}><path d={d} pathLength="1000" stroke="#ffcc49" strokeWidth="7" strokeDasharray="12 988" filter="url(#orbit-light-glow)" opacity=".75"/><path d={d} pathLength="1000" stroke="#ffe6a3" strokeWidth="2" strokeDasharray="3 997" strokeLinecap="round"/></g>)}
+   </g>
+  </svg>
+  <svg className="laptop-logo-animation" viewBox="0 0 1912 823" fill="none">
+   <defs>
+    <clipPath id="laptop-logo-zone"><path d="M1310 365 L1610 318 L1602 505 L1302 530 Z"/></clipPath>
+    <mask id="original-laptop-logo" maskUnits="userSpaceOnUse" x="1290" y="310" width="340" height="230" style={{maskType:'luminance'}}>
+     <image href="/hero-reference-v2.png" width="1912" height="823"/>
+    </mask>
+    <linearGradient id="logo-gold-sweep"><stop stopColor="#ffd15a" stopOpacity="0"/><stop offset=".38" stopColor="#f0b428" stopOpacity=".85"/><stop offset=".55" stopColor="#ffe9a3"/><stop offset="1" stopColor="#ffd15a" stopOpacity="0"/></linearGradient>
+    <filter id="logo-halo" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="5"/></filter>
+   </defs>
+   <g clipPath="url(#laptop-logo-zone)">
+    <g className="logo-breathing-halo" filter="url(#logo-halo)"><g mask="url(#original-laptop-logo)"><rect x="1290" y="310" width="340" height="230" fill="#ffc94b"/></g></g>
+    <g mask="url(#original-laptop-logo)"><rect className="logo-visible-sweep" x="1190" y="310" width="145" height="230" fill="url(#logo-gold-sweep)"/></g>
    </g>
   </svg>
  </div>;
