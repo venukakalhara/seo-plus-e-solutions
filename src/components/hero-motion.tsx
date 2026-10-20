@@ -17,6 +17,10 @@ uniform float elapsed;
 float laptop(vec2 p){
  return step(287.-.18*(p.x-1291.),p.y)*step(1291.-.21*(p.y-287.),p.x);
 }
+float logoLight(vec2 p){
+ vec3 c=texture2D(photograph,p/vec2(1912.,823.)).rgb;
+ return smoothstep(.36,.82,max(c.r,max(c.g,c.b)));
+}
 void main(){
  vec2 pixel=vec2(uv.x,1.-uv.y)*vec2(1912.,823.);
  vec2 originalUV=pixel/vec2(1912.,823.);
@@ -30,11 +34,17 @@ void main(){
  vec2 samplePixel=vec2(1249.,388.)+shifted*vec2(250.,253.);
  globe*=1.-laptop(samplePixel);
  vec4 earth=texture2D(photograph,samplePixel/vec2(1912.,823.));
- float sweep=exp(-pow((pixel.x-(1250.+mod(elapsed*48.,500.)))/28.,2.));
- float logo=step(1310.,pixel.x)*(1.-step(1605.,pixel.x))*step(328.,pixel.y)*(1.-step(515.,pixel.y));
- float light=smoothstep(.32,.8,max(original.r,max(original.g,original.b)));
- float shimmer=logo*light*sweep*.7;
- vec3 lit=min(vec3(1.),original.rgb+vec3(.32,.24,.11));
+ // A diagonal sweep and breathing halo reveal the original logo's contours.
+ // Unlike simply brightening white letters, the halo remains visible on black.
+ float sweep=exp(-pow((pixel.x+.3*(pixel.y-420.)-(1260.+mod(elapsed*74.,440.)))/35.,2.));
+ float logo=smoothstep(1295.,1310.,pixel.x)*(1.-smoothstep(1600.,1620.,pixel.x))*smoothstep(315.,332.,pixel.y)*(1.-smoothstep(510.,530.,pixel.y));
+ float light=logoLight(pixel);
+ float blur=(logoLight(pixel+vec2(5.,0.))+logoLight(pixel-vec2(5.,0.))+logoLight(pixel+vec2(0.,5.))+logoLight(pixel-vec2(0.,5.))+logoLight(pixel+vec2(4.,4.))+logoLight(pixel-vec2(4.,4.))+logoLight(pixel+vec2(-4.,4.))+logoLight(pixel+vec2(4.,-4.)))/8.;
+ float halo=max(0.,blur-light*.55);
+ float breathe=.55+.45*sin(elapsed*1.05);
+ float shimmer=logo*clamp(halo*(.55+.45*breathe)+light*sweep*.85,0.,.9);
+ vec3 warm=mix(original.rgb,vec3(1.,.87,.57),light*sweep*.18);
+ vec3 lit=min(vec3(1.),warm+vec3(1.,.66,.16)*halo*(.45+.4*breathe)+vec3(.18,.14,.06)*sweep*light);
  float alpha=max(globe,shimmer);
  vec3 color=mix(lit,earth.rgb,step(shimmer,globe));
  gl_FragColor=vec4(color,alpha);
