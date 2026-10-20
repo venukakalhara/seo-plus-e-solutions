@@ -38,8 +38,8 @@ export function ReferenceHome() {
   </section>
   <section className="matched-services">
    <div className="reference-container">
-    <div className="matched-services-heading"><div className="section-label"><span/>{t('OUR SERVICES','අපගේ සේවා')}<span/></div><h2>{t('Comprehensive','පුළුල්')} <span className="matched-gold">{t('IT & Digital Solutions','IT සහ ඩිජිටල් විසඳුම්')}</span></h2><p>{t('From web development to digital marketing, we provide end-to-end solutions','වෙබ් සංවර්ධනයේ සිට ඩිජිටල් අලෙවිකරණය දක්වා, අපි සම්පූර්ණ විසඳුම් සපයමු')}<br/>{t('to help your business grow in the digital era.','ඩිජිටල් යුගයේ ඔබේ ව්‍යාපාරය වර්ධනය කිරීමට.')}</p></div>
-    <div className="matched-service-grid">{services.map((s,i)=><Link href="/services" key={s.name[0]} className={`matched-service-card matched-service-${i}`}><div className="matched-service-icon"><s.icon size={35} strokeWidth={1.8}/></div><h3>{t(s.name[0],s.name[1])}</h3><p>{t(s.text[0],s.text[1])}</p><ArrowRight className="service-arrow" size={22}/></Link>)}</div>
+    <div className="matched-services-heading" data-reveal><div className="section-label"><span/>{t('OUR SERVICES','අපගේ සේවා')}<span/></div><h2>{t('Comprehensive','පුළුල්')} <span className="matched-gold">{t('IT & Digital Solutions','IT සහ ඩිජිටල් විසඳුම්')}</span></h2><p>{t('From web development to digital marketing, we provide end-to-end solutions','වෙබ් සංවර්ධනයේ සිට ඩිජිටල් අලෙවිකරණය දක්වා, අපි සම්පූර්ණ විසඳුම් සපයමු')}<br/>{t('to help your business grow in the digital era.','ඩිජිටල් යුගයේ ඔබේ ව්‍යාපාරය වර්ධනය කිරීමට.')}</p></div>
+    <div className="matched-service-grid">{services.map((s,i)=><Link data-reveal href="/services" key={s.name[0]} className={`matched-service-card matched-service-${i}`}><div className="matched-service-icon"><s.icon size={35} strokeWidth={1.8}/></div><h3>{t(s.name[0],s.name[1])}</h3><p>{t(s.text[0],s.text[1])}</p><ArrowRight className="service-arrow" size={22}/></Link>)}</div>
    </div>
   </section>
  </div>;

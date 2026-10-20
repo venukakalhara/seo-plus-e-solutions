@@ -4,6 +4,7 @@ import './multipage.css';
 import './store-admin.css';
 import './fonts.css';
 import './reference-design.css';
+import './home-experience.css';
 import { site } from '@/lib/site';
 import { LanguageProvider } from '@/components/language';
 
