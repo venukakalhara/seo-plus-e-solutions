@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './multipage.css';
 import './store-admin.css';
+import './fonts.css';
+import './reference-design.css';
 import { site } from '@/lib/site';
 import { LanguageProvider } from '@/components/language';
 

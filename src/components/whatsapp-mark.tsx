@@ -1,0 +1,3 @@
+export function WhatsAppMark() {
+ return <svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M27.9 15.5A11.9 11.9 0 0 1 10.2 26L3 28l2-7a11.9 11.9 0 1 1 22.9-5.5Z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/><path d="M11.2 9.2c-.3-.7-.7-.7-1-.7h-.8c-.3 0-.7.2-1 .5-.4.4-1.3 1.3-1.3 3.2s1.4 3.7 1.6 4c.2.2 2.8 4.3 6.7 6 3.3 1.4 4 .9 4.8.8.7-.1 2.4-1 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.3-.7-.5l-2.8-1.3c-.4-.2-.6-.3-.9.2-.3.4-1 1.3-1.3 1.5-.2.3-.5.3-.9.1-.4-.2-1.7-.6-3.3-2.1-1.2-1.1-2.1-2.4-2.3-2.8-.3-.4 0-.6.2-.8l.7-.8c.2-.3.3-.5.4-.7.1-.3.1-.5 0-.7l-1-2.1Z" fill="currentColor" transform="translate(2 1) scale(.85)"/></svg>;
+}
