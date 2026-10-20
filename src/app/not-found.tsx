@@ -1,2 +1,5 @@
+﻿'use client';
 import Link from 'next/link';
-export default function NotFound(){return <main id="main" className="container article-page"><div className="eyebrow">404 / A DIFFERENT DIRECTION</div><h1>This page is still<br/>a possibility.</h1><p>We couldn’t find that page. Let’s get you back to the beginning.</p><Link className="button button-gold" href="/">Back to SEO PLUS ↗</Link></main>;}
+import { Header, Footer } from '@/components/chrome';
+import { useLanguage } from '@/components/language';
+export default function NotFound(){const {t}=useLanguage();return <><Header/><main id="main" className="container article-page"><div className="eyebrow">404</div><h1>{t('Page not found.','පිටුව හමු නොවීය.')}</h1><p>{t('Please return to the home page to continue.','ඉදිරියට යාමට මුල් පිටුවට ආපසු යන්න.')}</p><Link className="button button-gold" href="/">{t('Back to SEO PLUS','SEO PLUS වෙත ආපසු')}</Link></main><Footer/></>;}

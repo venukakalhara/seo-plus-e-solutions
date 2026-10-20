@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './multipage.css';
+import './store-admin.css';
 import { site } from '@/lib/site';
+import { LanguageProvider } from '@/components/language';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url || 'http://localhost:3000'),
@@ -11,5 +14,5 @@ export const metadata: Metadata = {
   twitter: { card: 'summary', title: 'SEO PLUS E-Solutions', description: site.description },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><a className="skip-link" href="#main">Skip to content</a>{children}</body></html>;
+  return <html lang="en"><body><LanguageProvider><a className="skip-link" href="#main">Skip to content / අන්තර්ගතයට යන්න</a>{children}</LanguageProvider></body></html>;
 }

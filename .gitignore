@@ -147,3 +147,7 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Private persistent store, admin credentials and customer orders.
+/data/
+/state/store-test-*/

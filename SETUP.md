@@ -1,5 +1,7 @@
 # SEO PLUS website
 
+The site now includes a bilingual multi-page website, software subscription store and persistent admin panel. See [STORE-ADMIN.md](STORE-ADMIN.md) for the current store, admin password setup, database hosting and order workflow. The owner confirmed 50+ projects, 30+ clients, 5+ years and 24/7 support; these are displayed with a reduced-motion-aware count-up animation. The older notes below describe the initial website and are superseded where they conflict with the store guide.
+
 Next.js App Router + TypeScript + Tailwind CSS v4. CSS/SVG visuals, Lucide icons, local logo asset. No external fonts, animation framework or image service required.
 
 The dev/build scripts use Next.js Webpack mode because Turbopack failed to launch its CSS worker in this Windows environment. This does not change the Next.js/TypeScript/Tailwind application stack.

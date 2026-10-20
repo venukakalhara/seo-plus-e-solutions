@@ -1,0 +1,19 @@
+export const services = [
+ {en:'Web Development', si:'වෙබ් අඩවි නිර්මාණය', description:['Modern, responsive websites built around your business and your customers.','ඔබේ ව්‍යාපාරයට සහ පාරිභෝගිකයන්ට ගැළපෙන නවීන වෙබ් අඩවි.'], details:['Business websites · E-commerce · Web applications','ව්‍යාපාරික වෙබ් අඩවි · අන්තර්ජාල වෙළඳසැල් · වෙබ් යෙදුම්']},
+ {en:'Digital Marketing', si:'ඩිජිටල් අලෙවිකරණය', description:['Connect with your audience through focused campaigns and meaningful content.','ඉලක්කගත ප්‍රචාරණය සහ ප්‍රයෝජනවත් අන්තර්ගතය තුළින් පාරිභෝගිකයන් වෙත ළඟා වන්න.'], details:['Social media · Content planning · Campaigns','සමාජ මාධ්‍ය · අන්තර්ගත සැලසුම් · ප්‍රචාරණ වැඩසටහන්']},
+ {en:'Business Automation', si:'ව්‍යාපාර ස්වයංක්‍රීයකරණය', description:['Simplify everyday operations with connected tools and smarter workflows.','සම්බන්ධිත මෙවලම් සහ ක්‍රමවත් වැඩ ප්‍රවාහ මඟින් දෛනික මෙහෙයුම් පහසු කරන්න.'], details:['Workflow automation · Integrations · Custom tools','වැඩ ප්‍රවාහ ස්වයංක්‍රීයකරණය · පද්ධති ඒකාබද්ධ කිරීම · විශේෂ මෙවලම්']},
+ {en:'SEO Solutions', si:'SEO විසඳුම්', description:['Build a stronger search presence with clear content and sound technical foundations.','පැහැදිලි අන්තර්ගතය සහ ශක්තිමත් තාක්ෂණික පදනමක් සමඟ සෙවුම් ප්‍රතිඵලවල ඔබේ පැවැත්ම දියුණු කරන්න.'], details:['Technical SEO · Search strategy · Content optimisation','තාක්ෂණික SEO · සෙවුම් උපායමාර්ග · අන්තර්ගත ප්‍රශස්තකරණය']},
+];
+export const posts = [
+ ['A better website starts with better questions.','හොඳ වෙබ් අඩවියක් ඇරඹෙන්නේ නිවැරදි ප්‍රශ්නවලින්.','Before choosing colours or technology, decide who your visitors are and what your website should help them do. Clear goals make design and content decisions easier.','වර්ණ හෝ තාක්ෂණය තෝරාගැනීමට පෙර ඔබේ වෙබ් අඩවියට පැමිණෙන්නේ කවුද, ඔවුන්ට ඉටුකරගැනීමට අවශ්‍ය දේ කුමක්ද යන්න හඳුනාගන්න. පැහැදිලි අරමුණු නිර්මාණ සහ අන්තර්ගත තීරණ පහසු කරයි.'],
+ ['Build your search foundations.','සෙවුම් සඳහා ශක්තිමත් පදනමක් ගොඩනඟන්න.','Start with the questions your customers ask. Create useful content, descriptive page titles and meaningful internal links. Review relevant enquiries instead of promising a particular ranking.','ඔබේ පාරිභෝගිකයන් අසන ප්‍රශ්නවලින් ආරම්භ කරන්න. ප්‍රයෝජනවත් අන්තර්ගතය, පැහැදිලි පිටු මාතෘකා සහ අදාළ අභ්‍යන්තර සබැඳි සකස් කරන්න. නිශ්චිත සෙවුම් ස්ථානයක් පොරොන්දු වීම වෙනුවට ලැබෙන අදාළ විමසීම් අධ්‍යයනය කරන්න.'],
+ ['Automate the right things.','සුදුසු කාර්යයන් ස්වයංක්‍රීය කරන්න.','Choose one repetitive task with clear inputs and an owner. Keep a manual fallback, measure time saved and check output quality before expanding.','පැහැදිලි ආදාන සහ වගකිවයුතු පුද්ගලයකු ඇති පුනරාවර්තන කාර්යයක් තෝරන්න. අතින් ක්‍රියාත්මක කළ හැකි විකල්පයක් තබාගෙන, පුළුල් කිරීමට පෙර ඉතිරි වූ කාලය සහ ප්‍රතිඵලවල ගුණාත්මකභාවය පරීක්ෂා කරන්න.']
+];
+export const titles:Record<string,[string,string,string,string]>={
+ about:['Technology with a purpose.','අරමුණක් සහිත තාක්ෂණය.','Your goals are the starting point for everything we build.','අප ගොඩනඟන සෑම දෙයකම ආරම්භය ඔබේ අරමුණුයි.'],
+ services:['IT & Digital Solutions','IT සහ ඩිජිටල් විසඳුම්','Connected expertise for your next stage of growth.','ඔබේ ව්‍යාපාරයේ ඊළඟ පියවර සඳහා අවශ්‍ය දැනුම සහ සහාය.'],
+ solutions:['Built around your business.','ඔබේ ව්‍යාපාරයට ගැළපෙන විසඳුම්.','Start with your challenge. Find a practical way forward.','ඔබේ අභියෝගයෙන් ආරම්භ කර ප්‍රායෝගික විසඳුමක් සොයාගන්න.'],
+ projects:['Explore what’s possible.','නිර්මාණ හැකියාවන් ගවේෂණය කරන්න.','Design concepts for your next digital experience.','ඔබේ ඊළඟ ඩිජිටල් අත්දැකීම සඳහා නිර්මාණ සංකල්ප.'],
+ blog:['Ideas & Insights','අදහස් සහ දැනුම','Practical perspectives on websites, search and automation.','වෙබ් අඩවි, සෙවුම් සහ ස්වයංක්‍රීයකරණය පිළිබඳ ප්‍රායෝගික අදහස්.'],
+ contact:['Let’s build something great.','අගනා දෙයක් එක්ව ගොඩනඟමු.','Tell us about your goals and the challenges you want to solve.','ඔබේ අරමුණු සහ විසඳාගැනීමට අවශ්‍ය අභියෝග ගැන අපට කියන්න.'],
+};
