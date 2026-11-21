@@ -22,6 +22,8 @@ Open http://localhost:3000. For another port: `npm run dev -- --port 3001`.
 npm run lint
 npm run typecheck
 npm run build
+npm run test:integration
+npm run check:launch
 npm start
 ```
 
@@ -29,9 +31,9 @@ npm start
 
 Copy `.env.example` to `.env.local` and fill confirmed values. Restart/rebuild after changes. `NEXT_PUBLIC_SITE_URL` must be a full HTTPS origin without a trailing path. It controls robots/sitemap/indexing; without it the site intentionally requests no indexing. `NEXT_PUBLIC_CONTACT_EMAIL` activates email links; `NEXT_PUBLIC_WHATSAPP_NUMBER` accepts international digits only (no plus or spaces). These values are public, not secrets.
 
-The owner supplied WhatsApp number `0779713652`, configured as `94779713652` (Sri Lanka). The floating button and prepared-enquiry link open WhatsApp. No message is sent automatically.
+The owner supplied WhatsApp number `0779713652`, configured as `94779713652` (Sri Lanka). The floating button and store assistance link open WhatsApp. No message is sent automatically.
 
-The enquiry form **prepares a draft**. It does not send email, make API calls or store personal information. Copy works locally; configured email/WhatsApp actions hand the draft to the respective app. Add a verified delivery backend, server validation, abuse protection and a complete privacy notice if direct submission is wanted.
+The enquiry form submits to `/api/enquiries`, validates the request and saves it in SQLite for the admin Enquiries tab. Website order requests are saved automatically and issue a private status-tracking code. Email notifications and payment processing are not configured. See STORE-ADMIN.md.
 
 All three projects are explicitly labelled illustrative concepts. There are no invented stats, client logos, testimonials, team biographies, addresses or performance guarantees. Service wording and original editorial articles need owner review. The generated homepage reference was unavailable; the design uses the supplied original SEO PLUS logo and a custom black/gold visual direction.
 
