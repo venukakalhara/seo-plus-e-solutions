@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from './localized-link';
 
 import { useEffect, useRef, useState, type FormEvent, type CSSProperties } from 'react';
 import { ArrowUpRight, Menu, X, MessageCircle, Check, Copy, Search, Code2, Zap } from 'lucide-react';

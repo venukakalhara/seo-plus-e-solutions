@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from './localized-link';
 import { Header, Footer } from './chrome';
 import { useLanguage } from './language';
 import { articles } from '@/lib/site';

@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from './localized-link';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from './language';
 import { Header, Footer } from './chrome';

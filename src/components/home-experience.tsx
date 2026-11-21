@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import Link from './localized-link';
 import { ArrowRight, ArrowUpRight, Check, Code2, Search, Workflow, Layers3, MessageCircle, Package, ShieldCheck, Sparkles, MousePointer2, Pause, Play, ChevronRight } from 'lucide-react';
 import { ReferenceHome } from './reference-home';
 import { useLanguage } from './language';
@@ -56,7 +56,7 @@ export function HomeExperience() {
 
   <section className="home-section home-store-section">
    <div className="reference-container store-feature" data-reveal>
-    <div className="home-section-copy"><div className="home-eyebrow">{t('THE SEO PLUS SOFTWARE STORE','SEO PLUS මෘදුකාංග වෙළඳසැල')}</div><h2>{t('Your tools.','ඔබේ මෙවලම්.')}<br/><span className="matched-gold">{t('Your next advantage.','ඔබේ ඊළඟ ශක්තිය.')}</span></h2><p>{t('Discover software subscriptions for your digital life. Explore the store, choose your subscription and arrange your order directly with us on WhatsApp.','ඔබේ ඩිජිටල් ජීවිතය සඳහා මෘදුකාංග දායකත්ව සොයාගන්න. වෙළඳසැලෙන් ඔබේ දායකත්වය තෝරා WhatsApp හරහා අප සමඟ ඇණවුම සකස් කරගන්න.')}</p><Link className="button button-gold" href="/store">{t('Explore the Store','වෙළඳසැල බලන්න')}<ArrowRight size={19}/></Link><div className="store-feature-note"><MessageCircle size={16}/>{t('Personal assistance. Orders through WhatsApp.','පුද්ගලික සහාය. WhatsApp හරහා ඇණවුම්.')}</div></div>
+    <div className="home-section-copy"><div className="home-eyebrow">{t('THE SEO PLUS SOFTWARE STORE','SEO PLUS මෘදුකාංග වෙළඳසැල')}</div><h2>{t('Your tools.','ඔබේ මෙවලම්.')}<br/><span className="matched-gold">{t('Your next advantage.','ඔබේ ඊළඟ ශක්තිය.')}</span></h2><p>{t('Discover software subscriptions for your digital life. Explore the store, choose your subscription and submit your order request online.','ඔබේ ඩිජිටල් ජීවිතය සඳහා මෘදුකාංග දායකත්ව සොයාගන්න. වෙළඳසැලෙන් ඔබේ දායකත්වය තෝරා වෙබ් අඩවියෙන් ඇණවුම් ඉල්ලීම යවන්න.')}</p><Link className="button button-gold" href="/store">{t('Explore the Store','වෙළඳසැල බලන්න')}<ArrowRight size={19}/></Link><div className="store-feature-note"><MessageCircle size={16}/>{t('Online requests. Personal assistance.','වෙබ් ඇණවුම් ඉල්ලීම්. පුද්ගලික සහාය.')}</div></div>
     <div className="store-visual"><div className="store-orbit"/><div className="subscription-stack"><div className="stack-card stack-back"><Layers3 size={36}/></div><div className="stack-card stack-middle"><Code2 size={38}/></div><Link href="/store" className="stack-card stack-front"><div className="stack-top">SEO PLUS <span>STORE</span></div><div className="stack-symbol"><Package size={58} strokeWidth={1}/></div><strong>{t('Software','මෘදුකාංග')}<br/>{t('subscriptions.','දායකත්ව.')}</strong><div className="stack-bottom"><span>{t('Find your next tool','ඔබේ ඊළඟ මෙවලම සොයන්න')}</span><ArrowUpRight size={22}/></div></Link></div><span className="store-float-label"><Sparkles size={17}/>{t('A smarter way to work','වඩා සුහුරු වැඩ රටාවක්')}</span></div>
    </div>
   </section>

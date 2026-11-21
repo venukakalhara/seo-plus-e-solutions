@@ -1,6 +1,6 @@
 # Software store and admin
 
-The store sells subscriptions through WhatsApp at **+94 77 971 3652**. Products are empty initially: add actual subscription names, descriptions, durations and LKR prices in the admin. No unverified brands, prices or subscription offers are published.
+The store accepts website order requests, with optional WhatsApp assistance. Products are empty initially: add actual subscription names, descriptions, durations and LKR prices in the admin. No unverified brands, prices or subscription offers are published.
 
 ## Start
 
@@ -17,7 +17,8 @@ The setup command asks for a password without displaying it. Use at least 12 cha
 - `/store`: searchable catalogue with categories, availability filter, prices and subscription durations.
 - `/admin`: password-protected product, order, blog and project management.
 - Products: edit both languages, price, availability and publication status. Unpublish to remove an offer from the public store without losing order history.
-- Orders: manually record orders agreed through WhatsApp. Track pending, confirmed, completed and cancelled. Prices and duration are snapshotted; later product changes do not alter an existing order unless you select another product.
+- Enquiries: submitted contact forms appear in the private Enquiries tab. Reply using the customer email; automatic email notifications are not configured.
+- Orders: website requests appear automatically; you can also manually record agreed WhatsApp orders. Track pending, confirmed, completed and cancelled. Prices and duration are snapshotted; later product changes do not alter an existing order unless you select another product.
 - Blog/projects: add English and Sinhala titles, summaries and plain-text body content. Drafts stay private. Published entries appear on the relevant page and have their own `/updates/<id>` page.
 - Existing editorial articles remain in source. New admin-managed content appears above them. Portfolio concept placeholders disappear when an actual project is published.
 
@@ -31,9 +32,17 @@ Deploy on a Node server with persistent disk; do not deploy this database unchan
 
 Back up the database securely, including customer order data. Stop the application before taking a simple filesystem copy (SQLite WAL files can contain recent changes while the server is running). Restore only with the application stopped.
 
-Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin. Admin sessions use HTTP-only SameSite cookies, expire after 8 hours and are stored as token hashes. Login attempts are limited to 10 within 15 minutes for the single admin account. Customer/order data is only returned by authenticated routes. Use HTTPS for production.
+Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin. Admin sessions use HTTP-only SameSite cookies, expire after 8 hours and are stored as token hashes. Login attempts are limited to 10 within 15 minutes for the single admin account. Customer contact details and internal notes are only returned by authenticated routes. The public tracking endpoint accepts a random private code and returns only order status, product, quantity, total and update time. Use HTTPS for production.
 
-The store does not collect customer details from public forms; the admin stores details supplied from agreed orders. Update the business privacy/contact notice before public launch.
+Public enquiry and order forms store the submitted contact details in the private database. Tracking codes are shown once after submission; only their hashes are stored. Customers should save their code. The code does not authorize payment or activation.
+
+## Language and launch
+
+English routes use `/services`, `/contact`, etc.; Sinhala uses `/si/services`, `/si/contact`, etc. Language selection is URL-based and rendered on the server, including metadata. Switching languages performs a full navigation so the document language and shared layout update together.
+
+Run `npm run check:launch` before deployment. Until the real domain is configured, the site deliberately remains noindex. Set the production HTTPS origin, persistent storage directory, then rebuild. Payment processing remains unconfigured until a provider and merchant account are supplied.
+
+SETUP.md records that the owner confirmed the homepage counts; those figures are preserved. Publish real project details and customer-approved results via the admin to substantiate them. No testimonials or delivery guarantees have been invented. Service scopes are proposals, with final costs and milestones agreed per project.
 
 ## Email later
 

@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
 import { record } from '@/lib/database';
 import type { Entry } from '@/lib/store-types';
@@ -6,7 +7,7 @@ export const dynamic='force-dynamic';
 export const runtime='nodejs';
 export async function generateMetadata({params}:{params:Promise<{id:string}>}) {
  const {id}=await params;const entry=record<Entry>('entry',id);
- return entry?.published?{title:entry.title,description:entry.summary}:{title:'Not found'};
+ return entry?.published?await pageMetadata(`/updates/${id}`,entry.title,entry.summary,entry.titleSi,entry.summarySi):{title:'Not found'};
 }
 export default async function Page({params}:{params:Promise<{id:string}>}) {
  const {id}=await params; const entry=record<Entry>('entry',id);

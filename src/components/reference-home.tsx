@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from './localized-link';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChartNoAxesCombined, Code2, Globe, Megaphone, Search, Settings, CirclePlay, X, Pause, Play, RotateCcw } from 'lucide-react';
 import { useLanguage } from './language';

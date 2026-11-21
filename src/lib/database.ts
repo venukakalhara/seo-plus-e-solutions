@@ -1,7 +1,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import type { Product, Entry, Order, DashboardData } from './store-types';
 
 let connection: DatabaseSync | undefined;
@@ -22,7 +22,7 @@ export function db() {
   `);
   return connection;
 }
-type RecordKind = 'product' | 'entry' | 'order';
+type RecordKind = 'product' | 'entry' | 'order' | 'enquiry';
 export function records<T>(kind: RecordKind): T[] {
   return db().prepare('SELECT value FROM records WHERE kind=? ORDER BY rowid DESC').all(kind).map(row => JSON.parse(String(row.value)) as T);
 }
@@ -95,5 +95,33 @@ export function saveOrder(input: Record<string, unknown>): Order {
   save('order', order); return order;
 }
 export function dashboard(): DashboardData {
-  return { products: records<Product>('product'), entries: records<Entry>('entry'), orders: records<Order>('order') };
+  return { products: records<Product>('product'), entries: records<Entry>('entry'), orders: records<Order>('order'), enquiries: records('enquiry') };
+}
+
+export function createEnquiry(input: Record<string, unknown>) {
+  const email = text(input.email, 'Email', 254);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Enter a valid email address.');
+  const value = { id: randomUUID(), name: text(input.name, 'Name', 100), email,
+    service: text(input.service, 'Service', 160), message: text(input.message, 'Message', 4000), createdAt: new Date().toISOString() };
+  if (value.message.length < 15) throw new Error('Please provide at least 15 characters about your project.');
+  save('enquiry', value);
+  return { reference: value.id };
+}
+
+export function createPublicOrder(input: Record<string, unknown>) {
+  const product = record<Product>('product', text(input.productId, 'Product', 80));
+  if (!product?.published || !product.available) throw new Error('This subscription is not available.');
+  const order = saveOrder({ productId: product.id, customer: input.customer, phone: input.phone, quantity: input.quantity, status: 'pending', notes: '' });
+  const code = randomBytes(24).toString('hex');
+  db().exec('CREATE TABLE IF NOT EXISTS order_tracking (token TEXT PRIMARY KEY, order_id TEXT NOT NULL)');
+  db().prepare('INSERT INTO order_tracking(token,order_id) VALUES(?,?)').run(createHash('sha256').update(code).digest('hex'), order.id);
+  return { reference: order.id, code, total: order.unitPrice * order.quantity };
+}
+
+export function trackOrder(code: unknown) {
+  if (typeof code !== 'string' || !/^[a-f0-9]{48}$/.test(code)) return null;
+  db().exec('CREATE TABLE IF NOT EXISTS order_tracking (token TEXT PRIMARY KEY, order_id TEXT NOT NULL)');
+  const row = db().prepare('SELECT order_id FROM order_tracking WHERE token=?').get(createHash('sha256').update(code).digest('hex'));
+  const order = row && record<Order>('order', String(row.order_id));
+  return order ? { reference: order.id, product: order.productTitle, quantity: order.quantity, total: order.unitPrice * order.quantity, status: order.status, updatedAt: order.updatedAt } : null;
 }

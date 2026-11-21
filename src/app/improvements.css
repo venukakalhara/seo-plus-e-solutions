@@ -1,0 +1,7 @@
+.form-trap{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.tracking-code{display:block;overflow-wrap:anywhere;padding:1rem;background:#101113;border:1px solid #ffffff25;margin-block:1rem;user-select:all}
+.service-details{padding-block:2rem 4rem}.service-details>h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-top:2rem}.service-details p{font-size:1rem;line-height:1.7;color:#bfc0c4}.service-details details{border-bottom:1px solid #ffffff25;padding:1.2rem 0}.service-details summary{cursor:pointer;font-size:1.1rem}.service-details>.button{margin-top:2rem}
+.contact-form label,.contact-form input,.contact-form select,.contact-form textarea,.contact-form .form-note{font-size:1rem}.contact-form{min-width:0}.enquiry-result{overflow-wrap:anywhere}
+.language-switch a{padding:6px 9px;font-size:14px;border-radius:4px;white-space:nowrap}.language-switch a[aria-current="page"]{background:#d4b261;color:#111}.language-switch a:focus-visible{outline:2px solid #e6c67a;outline-offset:3px}
+.subscription-card .contact-form{padding:1rem;margin-top:1rem}.subscription-card .button{margin-top:.6rem}.business-stats strong{font-size:clamp(1.2rem,2vw,1.9rem)}
+@media(max-width:480px){.header-tools{gap:5px}.language-switch a{padding:6px;font-size:12px}.service-details .solutions-grid{display:block}.service-details .solution{padding:1.5rem 0}}

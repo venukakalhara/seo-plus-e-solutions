@@ -1,8 +1,9 @@
 'use client';
-import Link from 'next/link';
+import Link from './localized-link';
 import { ArrowRight, Code2, Search, Megaphone, Workflow, Globe } from 'lucide-react';
 import { Header, Footer } from './chrome';
 import { useLanguage } from './language';
+import { ServiceDetails } from './service-details';
 import { Enquiry } from './enquiry';
 import { HomeExperience } from './home-experience';
 import { WhatsAppMark } from './whatsapp-mark';
@@ -19,7 +20,7 @@ export function Website({page='home',entries=[]}:{page?:string;entries?:Entry[]}
  return <div id="top"><Header/><main id="main">
  {page==='home'?<HomeExperience/>:<section className="container page-heading"><div className="eyebrow">SEO PLUS / {t(page.toUpperCase(), 'ඩිජිටල් විසඳුම්')}</div><h1>{t(heading?.[0]||'',heading?.[1]||'')}</h1><p>{t(heading?.[2]||'',heading?.[3]||'')}</p></section>}
  {(page==='blog'||page==='projects')&&<PublishedContent entries={entries}/>}
- {page==='services'&&<section className="container page-content"><ServiceCards full/></section>}
+ {page==='services'&&<><section className="container page-content"><ServiceCards full/></section><ServiceDetails/></>}
  {page==='about'&&<section className="container page-content about-content"><article><h2>{t('Your partner in digital growth.','ඩිජිටල් වර්ධනයේ ඔබේ සහකරු.')}</h2><p>{t('SEO PLUS brings web development, digital marketing, search strategy and business automation together. We start by understanding your business, then shape the right design and technology around it.','SEO PLUS වෙබ් සංවර්ධනය, ඩිජිටල් අලෙවිකරණය, සෙවුම් උපායමාර්ග සහ ව්‍යාපාර ස්වයංක්‍රීයකරණය එක් කරයි. අපි මුලින් ඔබේ ව්‍යාපාරය තේරුම් ගෙන ඊට ගැළපෙන නිර්මාණය සහ තාක්ෂණය සැලසුම් කරමු.')}</p></article><div className="solution">{[['Understand your goals','ඔබේ අරමුණු හඳුනාගැනීම'],['Design a clear direction','පැහැදිලි සැලැස්මක් සකස් කිරීම'],['Build and test carefully','සංවර්ධනය සහ පරීක්ෂාව'],['Prepare for launch','දියත් කිරීමට සූදානම් කිරීම']].map(([en,si],i)=><p key={en}><span className="gold-text">0{i+1} / </span>{t(en,si)}</p>)}</div></section>}
  {page==='solutions'&&<section className="container page-content solutions-grid">{[['Launch your presence','ඔබේ ඩිජිටල් ගමන අරඹන්න','A business website, a clear brand story and search foundations.','ව්‍යාපාරික වෙබ් අඩවියක්, පැහැදිලි සන්නාම පණිවිඩයක් සහ සෙවුම් පදනමක්.'],['Grow your reach','වැඩි පිරිසක් වෙත ළඟා වන්න','Connect content, search and campaigns around your customers.','ඔබේ පාරිභෝගිකයන් කේන්ද්‍ර කරගෙන අන්තර්ගතය, සෙවුම් සහ ප්‍රචාරණය සම්බන්ධ කරන්න.'],['Simplify operations','මෙහෙයුම් පහසු කරන්න','Reduce repetitive work through integrations and custom platforms.','පද්ධති ඒකාබද්ධ කිරීම සහ විශේෂ වේදිකා තුළින් නැවත නැවත කළ යුතු වැඩ අඩු කරන්න.']].map(([en,si,d,ds],i)=><article className="solution" key={en}><div className="solution-number">0{i+1}</div><h2>{t(en,si)}</h2><p>{t(d,ds)}</p><Link className="text-link" href="/contact">{t('Discuss a solution','විසඳුමක් ගැන කතා කරමු')}<ArrowRight size={16}/></Link></article>)}</section>}
  {page==='projects'&&!entries.length&&<section className="container page-content"><p className="concept-notice">{t('These are illustrative concepts, not completed client projects.','මේවා නිර්මාණ සංකල්ප පමණි; අවසන් කළ පාරිභෝගික ව්‍යාපෘති නොවේ.')}</p><div className="projects-grid">{[['Business website','ව්‍යාපාරික වෙබ් අඩවිය','commerce'],['Business dashboard','ව්‍යාපාරික පාලක පුවරුව','dashboard'],['Travel experience','සංචාරක අත්දැකීම','travel']].map(([en,si,theme])=><article key={en}><div className={`project-preview ${theme}`}><div className="preview-top">SEO PLUS / {t('CONCEPT','සංකල්පය')}</div><div className="preview-content"><strong>{t(en,si)}</strong><div className="abstract-object"/></div></div><h3 className="project-caption">{t(en,si)}</h3><Link className="text-link" href="/contact">{t('Discuss a similar project','මෙවැනි ව්‍යාපෘතියක් ගැන විමසන්න')}<ArrowRight size={16}/></Link></article>)}</div></section>}
