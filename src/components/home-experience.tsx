@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from './localized-link';
-import { ArrowRight, ArrowUpRight, Check, Code2, Search, Workflow, Layers3, MessageCircle, Package, ShieldCheck, Sparkles, MousePointer2, Pause, Play, ChevronRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Code2, Search, Workflow, Layers3, MessageCircle, Package, Sparkles, MousePointer2, Pause, Play, ChevronRight } from 'lucide-react';
+import { GrowthChart } from './growth-chart';
 import { ReferenceHome } from './reference-home';
 import { useLanguage } from './language';
 import { site } from '@/lib/site';
@@ -39,9 +40,7 @@ export function HomeExperience() {
 
   <section className="home-section home-partner">
    <div className="reference-container partner-layout">
-    <div className="partner-visual" data-reveal aria-hidden="true">
-     <div className="visual-grid"/><div className="studio-window"><div className="window-chrome"><i/><i/><i/><span>SEO PLUS / DIGITAL STUDIO</span></div><div className="studio-screen"><div className="studio-sidebar"><span/><span/><span/><span/></div><div className="studio-dashboard"><div className="studio-dashboard-top"><div><small>YOUR NEXT CHAPTER</small><strong>Built to grow.</strong></div><span className="studio-status"><i/> CONNECTED</span></div><div className="studio-chart">{[26,43,35,57,46,69,61,82,74,94].map((h,i)=><span key={i} style={{height:`${h}%`}}/>)}</div><div className="studio-mini-panels"><span><Code2 size={18}/> WEB</span><span><Search size={18}/> SEO</span><span><Workflow size={18}/> FLOW</span></div></div></div></div><div className="studio-floating"><ShieldCheck size={24}/><span>{t('One connected team','එක්ව වැඩ කරන කණ්ඩායමක්')}<small>{t('Strategy → design → development','සැලැස්ම → නිර්මාණය → සංවර්ධනය')}</small></span></div><div className="studio-orbit"/><span className="studio-caption">{t('A connected approach to your digital presence.','ඔබේ ඩිජිටල් පැවැත්ම සඳහා ඒකාබද්ධ ප්‍රවේශයක්.')}</span>
-    </div>
+    <div className="partner-chart-wrap" data-reveal><GrowthChart motion={motion}/></div>
     <div className="home-section-copy" data-reveal><div className="home-eyebrow">{t('THE PEOPLE BEHIND THE PLUS','SEO PLUS පිටුපස අපි')}</div><h2>{t('Your ambition.','ඔබේ අරමුණ.')}<br/><span className="matched-gold">{t('Our next challenge.','අපේ ඊළඟ අභියෝගය.')}</span></h2><p>{t('A great website is only the beginning. We connect design, technology and digital strategy to help your business take its next step.','හොඳ වෙබ් අඩවියක් ආරම්භය පමණයි. ඔබේ ව්‍යාපාරයේ ඊළඟ පියවරට සහාය වීමට අපි නිර්මාණය, තාක්ෂණය සහ ඩිජිටල් උපායමාර්ග එක් කරමු.')}</p><div className="partner-values">{[['Designed for your business','ඔබේ ව්‍යාපාරයට ගැළපෙන නිර්මාණ'],['Clear communication, from start to launch','ආරම්භයේ සිට දියත් කිරීම දක්වා පැහැදිලි සන්නිවේදනය'],['Web, marketing and automation together','වෙබ්, අලෙවිකරණය සහ ස්වයංක්‍රීයකරණය එකම තැනක']].map(([en,si])=><span key={en}><Check size={17}/>{t(en,si)}</span>)}</div><Link className="home-text-link" href="/about">{t('Meet your digital partner','ඔබේ ඩිජිටල් සහකරු හඳුනාගන්න')}<ArrowUpRight size={20}/></Link></div>
    </div>
   </section>
