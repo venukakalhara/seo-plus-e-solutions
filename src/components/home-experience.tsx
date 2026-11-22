@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from './localized-link';
 import { ArrowRight, ArrowUpRight, Check, Code2, Search, Workflow, Layers3, MessageCircle, Package, Sparkles, MousePointer2, Pause, Play, ChevronRight } from 'lucide-react';
+import { ConnectionAnimation } from './connection-animation';
 import { GrowthChart } from './growth-chart';
 import { ReferenceHome } from './reference-home';
 import { useLanguage } from './language';
@@ -82,7 +83,7 @@ export function HomeExperience() {
    <div className="home-insight-grid">{posts.map((p,i)=>{const Icon=[Code2,Search,Workflow][i];return <Link data-reveal className={`home-insight-card insight-${i}`} href={`/blog/${articles[i].slug}`} key={articles[i].slug}><div className="insight-cover"><span>SEO PLUS / {t('FIELD NOTES','සටහන්')}</span><Icon size={55} strokeWidth={1.1}/><div className="insight-decoration"/></div><div className="home-insight-body"><div className="home-eyebrow">{t(['WEB STRATEGY','SEARCH & CONTENT','BUSINESS AUTOMATION'][i],['වෙබ් උපායමාර්ග','සෙවුම් සහ අන්තර්ගතය','ව්‍යාපාර ස්වයංක්‍රීයකරණය'][i])}</div><h3>{t(p[0],p[1])}</h3><span className="home-text-link">{t('Read the insight','ලිපිය කියවන්න')}<ArrowUpRight size={18}/></span></div></Link>})}</div>
   </div></section>
 
-  <section className="home-closing"><div className="reference-container" data-reveal><div className="closing-visual" aria-hidden="true"><div/><div/><div/></div><div className="home-eyebrow">{t('LET’S CREATE YOUR NEXT CHAPTER','ඔබේ ඊළඟ පියවර එක්ව ගොඩනඟමු')}</div><h2>{t('Big ideas start with','විශාල අදහස් ඇරඹෙන්නේ')}<br/><span className="matched-gold">{t('a simple hello.','සරල කතාබහකින්.')}</span></h2><p>{t('Tell us what you have in mind. Let’s make it happen.','ඔබේ සිතේ ඇති අදහස කියන්න. එය එක්ව සැබෑ කරමු.')}</p><a className="button button-gold" href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t('Hello SEO PLUS, I would like to discuss a project.','ආයුබෝවන් SEO PLUS, ව්‍යාපෘතියක් ගැන සාකච්ඡා කිරීමට අවශ්‍යයි.'))}`} target="_blank" rel="noopener noreferrer"><MessageCircle size={20}/>{t('Let’s talk on WhatsApp','WhatsApp හරහා කතා කරමු')}<ArrowRight size={18}/></a></div></section>
+  <section className="home-closing"><ConnectionAnimation/><div className="reference-container" data-reveal><div className="closing-visual" aria-hidden="true"><div/><div/><div/></div><div className="home-eyebrow">{t('LET’S CREATE YOUR NEXT CHAPTER','ඔබේ ඊළඟ පියවර එක්ව ගොඩනඟමු')}</div><h2>{t('Big ideas start with','විශාල අදහස් ඇරඹෙන්නේ')}<br/><span className="matched-gold">{t('a simple hello.','සරල කතාබහකින්.')}</span></h2><p>{t('Tell us what you have in mind. Let’s make it happen.','ඔබේ සිතේ ඇති අදහස කියන්න. එය එක්ව සැබෑ කරමු.')}</p><a className="button button-gold" href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t('Hello SEO PLUS, I would like to discuss a project.','ආයුබෝවන් SEO PLUS, ව්‍යාපෘතියක් ගැන සාකච්ඡා කිරීමට අවශ්‍යයි.'))}`} target="_blank" rel="noopener noreferrer"><MessageCircle size={20}/>{t('Let’s talk on WhatsApp','WhatsApp හරහා කතා කරමු')}<ArrowRight size={18}/></a></div></section>
  </div>;
 }
 function GlobeIcon({size=48,strokeWidth=1.2}:{size?:number;strokeWidth?:number}){return <MousePointer2 size={size} strokeWidth={strokeWidth}/>;}

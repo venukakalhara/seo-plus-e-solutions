@@ -156,3 +156,21 @@ html[lang=si] .stack-front>strong{font-size:23px;line-height:1.5}
 @media(prefers-reduced-motion:reduce){.capability-link{transition:none}}
 
 .partner-chart-wrap{min-width:0}.growth-dashboard{border:1px solid #dfbe5730;border-radius:22px;background:radial-gradient(ellipse at 80% 0,#d4ac4110,transparent 60%),#0e1620;padding:28px;box-shadow:0 24px 65px #0004}.growth-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}.growth-overline{font-size:10px;letter-spacing:2px;color:#97a6bb}.growth-heading h3{font-size:22px;margin:10px 0 0;font-weight:600;letter-spacing:-.5px}.growth-demo{font-size:11px;padding:6px 10px;border:1px solid #cfb65c40;border-radius:20px;color:#e1c779;white-space:nowrap}.growth-summary{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:28px}.growth-summary>div>span{font-size:12px;color:#96a6ba}.growth-summary strong{font-size:42px;display:block;font-variant-numeric:tabular-nums;color:#f8e5b1;line-height:1.4}.growth-summary small{font-size:14px;font-weight:400;color:#7e8c9e;margin-left:10px}.growth-summary-note{display:flex;align-items:center;gap:8px;color:#dbc16c}.growth-plot{width:100%;display:block;height:auto;margin:12px 0 16px;overflow:visible}.growth-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ffffff12;padding-top:16px;font-size:11px;color:#91a0b3}.growth-footer button{display:flex;gap:6px;align-items:center;border:1px solid #ffffff22;background:#ffffff04;color:#ddc77e;border-radius:20px;padding:10px 12px;min-height:44px;font-size:11px}.growth-footer button:disabled{opacity:.65}@media(max-width:540px){.growth-dashboard{padding:18px;border-radius:16px}.growth-heading{flex-wrap:wrap}.growth-heading h3{font-size:20px}.growth-summary-note{max-width:120px}.growth-summary{margin-top:18px}.growth-footer{flex-wrap:wrap}.growth-summary strong{font-size:36px}.growth-overline{font-size:9px}}
+
+/* Quiet connection trails frame the closing CTA without crossing its content. */
+.connection-animation{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.home-closing>.reference-container{z-index:1}
+.connection-wing{position:absolute;top:0;bottom:0;width:clamp(130px,25vw,440px);opacity:.7;mask-image:linear-gradient(90deg,#000 35%,transparent 100%);background:radial-gradient(ellipse at 0 50%,#cca13712,transparent 70%)}
+.connection-left{left:0}.connection-right{right:0;transform:scaleX(-1)}
+.connection-wing svg{width:100%;height:100%;overflow:visible}
+.connection-track{stroke:#d7b55b;stroke-opacity:.2;stroke-width:1}
+.connection-pulse{stroke:#ffe3a0;stroke-width:2;stroke-linecap:round;stroke-dasharray:7 93;stroke-dashoffset:100;filter:drop-shadow(0 0 4px #efc356);animation:connection-travel 8s linear infinite;animation-play-state:paused}
+.connection-route-1 .connection-pulse{animation-delay:-3s;animation-duration:10s}.connection-route-2 .connection-pulse{animation-delay:-6s;animation-duration:11s}.connection-route-3 .connection-pulse{animation-delay:-2s;animation-duration:12s}
+.connection-halo{fill:#e5bd5620;stroke:#e5bd562b;stroke-width:1;animation:connection-breathe 5s ease-in-out infinite;animation-play-state:paused}
+.connection-node:nth-child(even) .connection-halo{animation-delay:-2.5s}
+.home-experience[data-motion=on] .connection-pulse,.home-experience[data-motion=on] .connection-halo{animation-play-state:running}
+@keyframes connection-travel{to{stroke-dashoffset:0}}
+@keyframes connection-breathe{0%,100%{opacity:.35}50%{opacity:1}}
+@media(max-width:1000px){.connection-wing{width:20%;opacity:.45}}
+@media(max-width:600px){.connection-wing{width:135px;height:180px;bottom:auto;opacity:.45;mask-image:linear-gradient(90deg,#000,transparent)}.connection-left{top:-28px;left:-30px}.connection-right{top:auto;bottom:-25px;right:-30px}.connection-route-1,.connection-route-3,.connection-node-3,.connection-node-4,.connection-node-5{display:none}.home-closing>.reference-container{padding-inline:8px}.home-closing .button{max-width:100%;white-space:normal}.connection-pulse{filter:none}}
+@media(prefers-reduced-motion:reduce){.connection-pulse,.connection-halo{animation:none!important}.connection-pulse{opacity:.3}}
