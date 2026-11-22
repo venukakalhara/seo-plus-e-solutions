@@ -10,9 +10,12 @@
     "typecheck": "tsc --noEmit",
     "admin:setup": "node scripts/admin-setup.mjs",
     "test:integration": "node scripts/test-store.mjs",
-    "check:launch": "node scripts/check-launch.mjs"
+    "check:launch": "node scripts/check-launch.mjs",
+    "test:cloud-adapter": "node --experimental-test-module-mocks scripts/test-cloud-adapter.mjs",
+    "test:serverless": "node scripts/test-serverless.mjs"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
     "lucide-react": "^0.468.0",
     "next": "^16.4.6",
     "react": "^19.2.0",

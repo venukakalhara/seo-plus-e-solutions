@@ -15,7 +15,7 @@ await new Promise(resolve => socket.listen(0, '127.0.0.1', resolve));
 const port = socket.address().port;
 await new Promise(resolve => socket.close(resolve));
 const origin = `http://localhost:${port}`;
-const env = { ...process.env, SEO_DATA_DIR: testDir, NEXT_PUBLIC_SITE_URL: origin };
+const env = { ...process.env,TURSO_DATABASE_URL:'',TURSO_AUTH_TOKEN:'', SEO_DATA_DIR: testDir, NEXT_PUBLIC_SITE_URL: origin };
 const setup = spawnSync(process.execPath, ['scripts/admin-setup.mjs'], { env: { ...env, ADMIN_SETUP_PASSWORD: password }, encoding: 'utf8' });
 assert.equal(setup.status, 0, setup.stderr);
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--port', String(port)], { env, stdio: ['ignore', 'pipe', 'pipe'] });

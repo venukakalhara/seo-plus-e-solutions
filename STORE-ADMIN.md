@@ -4,7 +4,7 @@ The store accepts website order requests, with optional WhatsApp assistance. Pro
 
 ## Start
 
-Requires Node **22.18 or newer** with `node:sqlite`, and a persistent, writable disk.
+Use Node **22.18 or newer**. Local SQLite needs `node:sqlite` and a persistent, writable disk. Vercel uses the hosted database setup below.
 
 ```powershell
 npm run admin:setup
@@ -28,7 +28,13 @@ Clicking a WhatsApp link opens a prepared enquiry. Customers still review and se
 
 SQLite data defaults to `data/seo-plus.sqlite`. The folder is excluded from Git and must never be moved into `public/`. Set `SEO_DATA_DIR` to an absolute directory on the hosting server's persistent disk to use a different location. Keep this same value for setup and the running application.
 
-Deploy on a Node server with persistent disk; do not deploy this database unchanged to an ephemeral/serverless filesystem or Cloudflare Workers. Multiple unrelated machines will not share this local database. Choose the production host before launch, or migrate persistence to a hosted database for serverless hosting.
+For Vercel, configure the hosted Turso libSQL connection described below. For local SQLite, use a Node server with persistent disk. Multiple unrelated machines do not share a local SQLite file.
+
+### `/var/task/data` deployment error
+
+`/var/task` is the deployed function bundle, not persistent writable storage. The app now detects Vercel/Lambda execution before creating a local database. Database-backed pages show a temporary-unavailability notice and APIs return HTTP 503 instead of exposing filesystem errors or reporting unsaved submissions as successful. Static marketing pages remain available. With cloud credentials configured, the application uses the hosted database instead of this fallback.
+
+To restore catalogue/admin/enquiry/order functionality, configure the Turso connection below, or deploy on a persistent Node host with `SEO_DATA_DIR` pointing to its mounted disk. Setting this variable to `/tmp` on Vercel will not solve persistence and is deliberately not supported. Existing local records are not automatically uploaded to hosting. Redeploy the changed code for the error handling to take effect.
 
 Back up the database securely, including customer order data. Stop the application before taking a simple filesystem copy (SQLite WAL files can contain recent changes while the server is running). Restore only with the application stopped.
 
@@ -40,7 +46,7 @@ Public enquiry and order forms store the submitted contact details in the privat
 
 English routes use `/services`, `/contact`, etc.; Sinhala uses `/si/services`, `/si/contact`, etc. Language selection is URL-based and rendered on the server, including metadata. Switching languages performs a full navigation so the document language and shared layout update together.
 
-Run `npm run check:launch` before deployment. Until the real domain is configured, the site deliberately remains noindex. Set the production HTTPS origin, persistent storage directory, then rebuild. Payment processing remains unconfigured until a provider and merchant account are supplied.
+Run `npm run check:launch` before deployment. Until the production URL is configured, the site deliberately remains noindex. Set the production HTTPS origin and either Turso credentials or a local persistent storage directory, then rebuild. Payment processing remains unconfigured until a provider and merchant account are supplied.
 
 SETUP.md records that the owner confirmed the homepage counts; those figures are preserved. Publish real project details and customer-approved results via the admin to substantiate them. No testimonials or delivery guarantees have been invented. Service scopes are proposals, with final costs and milestones agreed per project.
 
@@ -56,3 +62,16 @@ npm run test:integration
 ```
 
 The integration test starts a production server on a free port using a separate temporary SQLite database. It checks login/session protection, draft privacy, product changes, sold-out behaviour, WhatsApp links, saved orders, historical prices and content publishing. It never sends a WhatsApp message.
+
+## Vercel + Turso libSQL setup
+
+1. Create a Turso account and a **libSQL** database (not the newer Turso engine). Using the Turso CLI, `turso db create seo-plus` creates libSQL; do not add `--tursodb`. See https://docs.turso.tech/quickstart.
+2. Obtain the database URL and a database read/write auth token through your Turso dashboard or CLI. Keep the token private.
+3. In Vercel project Settings > Environment Variables, set `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` for the intended deployment environment. Never prefix them with `NEXT_PUBLIC_`. Set `NEXT_PUBLIC_SITE_URL` to your actual deployed HTTPS origin. A custom domain is not required; the actual Vercel production URL works.
+4. Redeploy this updated code. Tables are initialized automatically. Cloud mode never creates `/var/task/data` or a `/tmp` database. Missing, partial or rejected cloud credentials never silently fall back to a local database.
+5. Put the same two private variables in your ignored local `.env.local` and run `npm run admin:setup` locally. It prompts for the password and writes a salted password hash to the cloud database. This also revokes previous admin sessions. Do not set a plaintext admin password in public environment variables or commit `.env.local`.
+6. Sign in at your deployed `/admin` and add products/content. Submit a test enquiry and check the Enquiries tab. Existing local SQLite records are not uploaded automatically; keep your local database backup until any separate migration is verified.
+
+Use a separate database/token for Preview deployments so testing cannot alter production records. Runtime SQL uses bound parameters and the HTTP-only SDK import. Order creation and its private tracking token are written in one transaction. Cloud execution has been checked with a mocked SDK; a live database check still requires your account credentials.
+
+Reference: https://docs.turso.tech/integrations/vercel

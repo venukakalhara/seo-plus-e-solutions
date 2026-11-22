@@ -16,10 +16,8 @@ export async function publicInput(request: Request) {
   const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
   if (!input || typeof input !== 'object' || Array.isArray(input) || input.website) throw new Error('Invalid request.');
   // Persistent global ceiling does not trust spoofable forwarding headers.
-  db().exec('CREATE TABLE IF NOT EXISTS public_attempts (at INTEGER NOT NULL)');
-  db().prepare('DELETE FROM public_attempts WHERE at<?').run(Date.now() - 60000);
-  const count = db().prepare('SELECT COUNT(*) AS n FROM public_attempts').get();
-  if (Number(count?.n) >= 60) throw new Error('Too many requests. Please try again in a minute.');
-  db().prepare('INSERT INTO public_attempts(at) VALUES(?)').run(Date.now());
+  await db().prepare('DELETE FROM public_attempts WHERE at<?').run(Date.now() - 60000);
+  const attempt=await db().prepare('INSERT INTO public_attempts(at) SELECT ? WHERE (SELECT COUNT(*) FROM public_attempts)<60 RETURNING at').get(Date.now());
+  if (!attempt) throw new Error('Too many requests. Please try again in a minute.');
   return input as Record<string, unknown>;
 }
