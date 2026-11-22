@@ -5,3 +5,30 @@
 .language-switch a{padding:6px 9px;font-size:14px;border-radius:4px;white-space:nowrap}.language-switch a[aria-current="page"]{background:#d4b261;color:#111}.language-switch a:focus-visible{outline:2px solid #e6c67a;outline-offset:3px}
 .subscription-card .contact-form{padding:1rem;margin-top:1rem}.subscription-card .button{margin-top:.6rem}.business-stats strong{font-size:clamp(1.2rem,2vw,1.9rem)}
 @media(max-width:480px){.header-tools{gap:5px}.language-switch a{padding:6px;font-size:12px}.service-details .solutions-grid{display:block}.service-details .solution{padding:1.5rem 0}}
+
+/* Keep narrow screens usable with long content and the on-screen keyboard. */
+.admin-form-grid>*,.admin-metrics>*,.about-content>*,.contact-grid>*,.store-grid>*{min-width:0}
+.managed-content-card,.entry-paragraph,.subscription-copy,.admin-error,.admin-success{overflow-wrap:anywhere}
+.store-filters select{max-width:100%;min-width:0}
+@media(max-width:1000px){
+ .site-header .navigation{top:100%;max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain}
+}
+@media(max-width:600px){
+ .admin-editor input,.admin-editor select,.admin-editor textarea,.admin-toolbar input,.store-search input,.store-filters select{font-size:16px}
+ .admin-login-top{gap:12px;flex-wrap:wrap}
+ .admin-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .admin-metrics strong{font-size:clamp(18px,5vw,26px);overflow-wrap:anywhere;max-width:100%}
+ .admin-metrics>div{padding:12px 8px}
+ .admin-notice code{overflow-wrap:anywhere}
+ .menu-toggle,.language-switch a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+ .film-dialog{max-height:calc(100dvh - 24px)}
+}
+@media(max-width:360px){
+ .site-header .header-inner{gap:6px}
+ .site-header .brand{width:104px}
+ .header-tools{gap:2px}
+ .menu-toggle{padding:8px}
+ .matched-hero h1{font-size:34px}
+ .matched-hero h1 .hero-final-line{font-size:26px}
+ .matched-actions{flex-wrap:wrap}
+}
