@@ -81,7 +81,7 @@ try {
   assert.equal(response.status,201);assert.ok((await response.json()).reference);
   const savedEnquiries=await (await request('/api/admin/data')).json();
   assert.ok(savedEnquiries.enquiries.some(e=>e.phone==='+94771234567'));
-  for(const phone of ['123','abc0771234567','+447911123456'])assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,phone},authenticated:false})).status,400);
+  for(const phone of [undefined,'','   ','123','abc0771234567','+447911123456'])assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,phone},authenticated:false})).status,400);
   assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,email:'invalid'},authenticated:false})).status,400);
   assert.equal((await request('/api/enquiries',{method:'POST',body:enquiry,requestOrigin:'https://untrusted.example',authenticated:false})).status,400);
   assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,website:'spam'},authenticated:false})).status,400);
