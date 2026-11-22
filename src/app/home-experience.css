@@ -139,3 +139,18 @@ html[lang=si] .stack-front>strong{font-size:23px;line-height:1.5}
 .footer-legal{border-top:1px solid #ffffff10;display:flex;align-items:center;gap:25px;padding-block:22px;color:#768396;font-size:9px}.footer-legal>span{margin-right:auto}
 @media(max-width:900px){.footer-columns{grid-template-columns:1.3fr 1fr;gap:35px}.footer-columns h3{margin-top:8px}}
 @media(max-width:480px){.footer-columns{grid-template-columns:1fr 1fr;gap:25px 20px;padding-bottom:30px}.footer-brand-column,.footer-contact-column{grid-column:1/-1}.footer-contact-column{border-top:1px solid #ffffff10;padding-top:15px}.footer-legal{flex-wrap:wrap;padding-right:45px;gap:15px;font-size:8px}.footer-legal>span{flex-basis:100%}.expanded-footer{padding-top:30px}}
+
+/* Balanced expertise navigation */
+.home-capabilities{background:linear-gradient(110deg,#0b1119,#0d141d 50%,#0a1017);border-block:1px solid #ddbd6420}
+.home-capabilities>.reference-container{display:flex;flex-wrap:nowrap;gap:20px;padding-block:24px}
+.home-capabilities .capability-items{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));flex:1;gap:0;width:auto}
+.capability-link{display:flex;align-items:center;gap:16px;min-width:0;padding:12px 24px;border-right:1px solid #ffffff12;border-radius:6px;transition:background .2s}
+.capability-link:first-child{padding-left:0}.capability-link:last-child{border-right:0}
+.capability-icon{width:46px;height:46px;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(145deg,#e9be5020,#e9be5005);border:1px solid #e9be502a;border-radius:14px;color:#edc85d}
+.capability-copy{display:flex;flex-direction:column;gap:5px;min-width:0}.capability-copy strong{font-size:17px;font-weight:600;letter-spacing:.2px;color:#f0f2f5}.capability-copy>span{font-size:12px;line-height:1.6;color:#99a5b5}
+.capability-link:hover{background:#ffffff05}.capability-link:hover .capability-icon{border-color:#e9be5077}.capability-link:focus-visible,.capability-motion:focus-visible{outline:2px solid #edc85d;outline-offset:4px}
+.home-capabilities .capability-motion{width:40px;height:40px;padding:0;flex-shrink:0;display:grid;place-items:center;border-color:#ffffff1c;margin:0;border-radius:50%}
+@media(max-width:1150px){.capability-link{gap:10px;padding-inline:14px}.capability-copy strong{font-size:15px}.capability-copy>span{font-size:11px}.capability-icon{width:38px;height:38px}}
+@media(max-width:800px){.home-capabilities>.reference-container{gap:12px;align-items:center}.home-capabilities .capability-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 0}.capability-link,.capability-link:first-child{padding:14px}.capability-link:nth-child(2){border-right:0}.capability-link:nth-child(-n+2){border-bottom:1px solid #ffffff12}.capability-copy strong{font-size:16px}}
+@media(max-width:540px){.home-capabilities>.reference-container{padding-block:16px;gap:8px}.capability-link,.capability-link:first-child{padding:12px 8px;gap:9px;align-items:flex-start}.capability-icon{width:30px;height:34px;border-radius:9px}.capability-icon svg{width:18px}.capability-copy strong{font-size:13px;overflow-wrap:anywhere}.capability-copy>span{font-size:11px}.home-capabilities .capability-motion{width:32px;height:32px}}
+@media(prefers-reduced-motion:reduce){.capability-link{transition:none}}
