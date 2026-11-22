@@ -14,5 +14,5 @@ export type Order = {
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
   notes: string; createdAt: string; updatedAt: string;
 };
-export type EnquiryRecord = { id: string; name: string; email: string; service: string; message: string; createdAt: string };
+export type EnquiryRecord = { phone?: string; id: string; name: string; email: string; service: string; message: string; createdAt: string };
 export type DashboardData = { products: Product[]; entries: Entry[]; orders: Order[]; enquiries: EnquiryRecord[] };

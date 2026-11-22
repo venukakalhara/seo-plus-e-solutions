@@ -76,9 +76,12 @@ try {
   assert.equal(invalid.status,400);
   const forbidden=await request('/api/admin/data',{method:'POST',requestOrigin:'https://untrusted.example',body:{type:'product',value:product}});
   assert.equal(forbidden.status,403);
-  const enquiry={name:'Private enquiry',email:'customer@example.com',service:'Web Development',message:'Please build a business website.',website:''};
+  const enquiry={phone:'077 123 4567',phoneCountry:'LK',name:'Private enquiry',email:'customer@example.com',service:'Web Development',message:'Please build a business website.',website:''};
   response=await request('/api/enquiries',{method:'POST',body:enquiry,authenticated:false});
   assert.equal(response.status,201);assert.ok((await response.json()).reference);
+  const savedEnquiries=await (await request('/api/admin/data')).json();
+  assert.ok(savedEnquiries.enquiries.some(e=>e.phone==='+94771234567'));
+  for(const phone of ['123','abc0771234567','+447911123456'])assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,phone},authenticated:false})).status,400);
   assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,email:'invalid'},authenticated:false})).status,400);
   assert.equal((await request('/api/enquiries',{method:'POST',body:enquiry,requestOrigin:'https://untrusted.example',authenticated:false})).status,400);
   assert.equal((await request('/api/enquiries',{method:'POST',body:{...enquiry,website:'spam'},authenticated:false})).status,400);

@@ -1,3 +1,4 @@
+import { normalizeMobile } from './phone';
 import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import type { Product, Entry, Order, DashboardData } from './store-types';
 import { getDatabase, type SqlValue } from './database-client.mjs';
@@ -89,7 +90,8 @@ export async function dashboard(): Promise<DashboardData> {
 export async function createEnquiry(input: Record<string, unknown>) {
   const email = text(input.email, 'Email', 254);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Enter a valid email address.');
-  const value = { id: randomUUID(), name: text(input.name, 'Name', 100), email,
+  const phone=normalizeMobile(input.phone,input.phoneCountry);
+  const value = { id: randomUUID(), name: text(input.name, 'Name', 100), email, phone,
     service: text(input.service, 'Service', 160), message: text(input.message, 'Message', 4000), createdAt: new Date().toISOString() };
   if (value.message.length < 15) throw new Error('Please provide at least 15 characters about your project.');
   await save('enquiry', value);
