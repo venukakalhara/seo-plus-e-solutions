@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from './localized-link';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ChartNoAxesCombined, Code2, Globe, Megaphone, Search, Settings, CirclePlay, X, Pause, Play, RotateCcw } from 'lucide-react';
+import { ArrowRight, ChartNoAxesCombined, Code2, Globe, Megaphone, Search, Settings, CirclePlay, X, Pause, Play } from 'lucide-react';
 import { useLanguage } from './language';
 import { Stats } from './stats';
 import { HeroMotion } from './hero-motion';
@@ -49,21 +49,16 @@ export function ReferenceHome({motion=false,onToggleMotion}:{motion?:boolean;onT
 }
 
 function Intro() {
- const {t}=useLanguage();const dialog=useRef<HTMLDialogElement>(null);
- const [open,setOpen]=useState(false);const [step,setStep]=useState(0);const [playing,setPlaying]=useState(true);
- const scenes=[
-  [t('Your vision. Our expertise.','ඔබේ දැක්ම. අපගේ දැනුම.'),t('Websites designed around your business.','ඔබේ ව්‍යාපාරයට ගැළපෙන වෙබ් අඩවි.')],
-  [t('Connect. Grow. Succeed.','සම්බන්ධ වන්න. වර්ධනය වන්න.'),t('Digital marketing and SEO that support your next step.','ඔබේ ඊළඟ පියවරට සහාය වන ඩිජිටල් අලෙවිකරණය සහ SEO.')],
-  [t('A smarter tomorrow.','සුහුරු හෙට දවසක්.'),t('Automation and software subscriptions, together at SEO PLUS.','ස්වයංක්‍රීයකරණය සහ මෘදුකාංග දායකත්ව, SEO PLUS වෙතින්.')],
- ];
- useEffect(()=>{
-  if(!open||!playing)return;
-  const timer=setTimeout(()=>{if(step<2)setStep(step+1);else setPlaying(false);},4500);
-  return ()=>clearTimeout(timer);
- },[open,playing,step]);
+ const {t}=useLanguage();
+ const dialog=useRef<HTMLDialogElement>(null);
+ const video=useRef<HTMLVideoElement>(null);
+ const [open,setOpen]=useState(false);
  useEffect(()=>{if(!open)return;const previous=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=previous;};},[open]);
- return <><button className="button matched-intro-button" onClick={()=>{setStep(0);setPlaying(true);setOpen(true);dialog.current?.showModal();}}><CirclePlay size={22} fill="currentColor" stroke="#111820"/>{t('Watch Intro','හැඳින්වීම බලන්න')}</button>
- <dialog ref={dialog} className="intro-dialog" onClose={()=>setOpen(false)} onClick={e=>{if(e.target===dialog.current)dialog.current.close();}} aria-labelledby="intro-title">
-  <div className="intro-player"><button className="intro-close" aria-label={t('Close introduction','හැඳින්වීම වසන්න')} onClick={()=>dialog.current?.close()}><X/></button><div className="intro-brand">SEO <span>PLUS</span></div><div className="intro-scene" key={step}><div className="eyebrow">{t('WELCOME TO SEO PLUS','SEO PLUS වෙත සාදරයෙන් පිළිගනිමු')}</div><h2 id="intro-title">{scenes[step][0]}</h2><p>{scenes[step][1]}</p></div><div className="intro-controls"><button onClick={()=>{if(step===2&&!playing){setStep(0);setPlaying(true);}else setPlaying(!playing);}} aria-label={t(playing?'Pause introduction':'Play introduction',playing?'විරාමයක් තබන්න':'හැඳින්වීම ධාවනය කරන්න')}>{playing?<Pause size={20}/>:step===2?<RotateCcw size={20}/>:<Play size={20}/>}</button><div className="intro-steps">{scenes.map((_,i)=><button key={i} className={i===step?'is-current':''} onClick={()=>{setStep(i);setPlaying(true);}} aria-label={`${t('Scene','දර්ශනය')} ${i+1}`} aria-current={i===step?'step':undefined}/>)}</div><Link href="/contact" onClick={()=>dialog.current?.close()}>{t('Let’s talk','කතා කරමු')}<ArrowRight size={16}/></Link></div></div>
+ function close(){video.current?.pause();setOpen(false);}
+ return <><button className="button matched-intro-button" onClick={()=>{dialog.current?.showModal();setOpen(true);if(video.current){video.current.currentTime=0;void video.current.play().catch(()=>{});}}}><CirclePlay size={22}/>{t('Watch Intro','හැඳින්වීම බලන්න')}</button>
+ <dialog ref={dialog} className="intro-dialog film-dialog" onClose={close} onClick={e=>{if(e.target===dialog.current)dialog.current.close();}} aria-labelledby="intro-title">
+ <div className="film-heading"><h2 id="intro-title">SEO PLUS · {t('Our story','අපේ කතාව')}</h2><button aria-label={t('Close introduction','හැඳින්වීම වසන්න')} onClick={()=>dialog.current?.close()}><X/></button></div>
+ <video ref={video} controls playsInline preload="none" poster="/media/intro-poster.jpg" aria-label="SEO PLUS vision, mission and services introduction"><source src="/media/seo-plus-intro.mp4" type="video/mp4"/>Your browser does not support video. <a href="/media/seo-plus-intro.mp4">Download the introduction</a>.</video>
+ <div className="film-footer"><span>{t('Our vision. Your next chapter.','අපගේ දැක්ම. ඔබේ නව ඇරඹුම.')}</span><Link href="/contact" onClick={()=>dialog.current?.close()}>{t('Let’s build together','එක්ව ගොඩනඟමු')}</Link></div>
  </dialog></>;
 }
