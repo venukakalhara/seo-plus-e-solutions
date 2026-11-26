@@ -10,7 +10,11 @@ varying vec2 uv;
 void main(){uv=position*.5+.5;gl_Position=vec4(position,0.,1.);}
 `;
 const fragmentSource = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 varying vec2 uv;
 uniform sampler2D photograph;
 uniform float elapsed;

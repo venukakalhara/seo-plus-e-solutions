@@ -14,10 +14,13 @@ import { posts } from '@/lib/content';
 export function HomeExperience() {
  const {t}=useLanguage();const root=useRef<HTMLDivElement>(null);
  const [motion,setMotion]=useState(false);
+ const [motionOverride,setMotionOverride]=useState(false);
+ function toggleMotion(){setMotionOverride(true);setMotion(value=>!value);}
  useEffect(()=>{
   const preference=window.matchMedia('(prefers-reduced-motion: reduce)');
   const update=()=>setMotion(!preference.matches);update();
-  preference.addEventListener('change',update);return()=>preference.removeEventListener('change',update);
+  if(preference.addEventListener){preference.addEventListener('change',update);return()=>preference.removeEventListener('change',update);}
+  preference.addListener(update);return()=>preference.removeListener(update);
  },[]);
  useEffect(()=>{
   const elements=Array.from(root.current?.querySelectorAll<HTMLElement>('[data-reveal]')||[]);
@@ -30,14 +33,14 @@ export function HomeExperience() {
   document.addEventListener('focusin',focus);
   return()=>{observer.disconnect();elements.forEach(e=>e.classList.remove('reveal-pending'));document.removeEventListener('focusin',focus);};
  },[motion]);
- return <div ref={root} className="home-experience" data-motion={motion?'on':'off'}>
-  <ReferenceHome motion={motion} onToggleMotion={()=>setMotion(!motion)}/>
+ return <div ref={root} className="home-experience" data-motion={motion?'on':'off'} data-motion-override={motionOverride}>
+  <ReferenceHome motion={motion} onToggleMotion={toggleMotion}/>
   <nav className="home-capabilities" aria-label={t('Explore our expertise','අපගේ සේවා ගවේෂණය කරන්න')}><div className="reference-container"><div className="capability-items">{[
    {icon:Code2,title:t('Build','නිර්මාණය'),detail:t('Websites & digital experiences','වෙබ් අඩවි සහ ඩිජිටල් අත්දැකීම්'),href:'/services'},
    {icon:Search,title:t('Grow','වර්ධනය'),detail:t('SEO & digital marketing','SEO සහ ඩිජිටල් අලෙවිකරණය'),href:'/services'},
    {icon:Workflow,title:t('Automate','ස්වයංක්‍රීයකරණය'),detail:t('Smarter business workflows','සුහුරු ව්‍යාපාර ක්‍රියාවලි'),href:'/solutions'},
    {icon:Package,title:t('Subscribe','දායකත්ව'),detail:t('Software for your next step','ඔබේ මීළඟ පියවරට මෘදුකාංග'),href:'/store'},
-  ].map(item=><Link className="capability-link" key={item.href+item.title} href={item.href}><span className="capability-icon"><item.icon size={22} strokeWidth={1.6}/></span><span className="capability-copy"><strong>{item.title}</strong><span>{item.detail}</span></span></Link>)}</div><button className="motion-control capability-motion" onClick={()=>setMotion(!motion)} aria-pressed={!motion} aria-label={t(motion?'Pause motion':'Enable motion',motion?'චලන නවත්වන්න':'චලන සක්‍රිය කරන්න')} title={t(motion?'Pause motion':'Enable motion',motion?'චලන නවත්වන්න':'චලන සක්‍රිය කරන්න')}>{motion?<Pause size={16}/>:<Play size={16}/>}</button></div></nav>
+  ].map(item=><Link className="capability-link" key={item.href+item.title} href={item.href}><span className="capability-icon"><item.icon size={22} strokeWidth={1.6}/></span><span className="capability-copy"><strong>{item.title}</strong><span>{item.detail}</span></span></Link>)}</div><button className="motion-control capability-motion" onClick={toggleMotion} aria-pressed={!motion} aria-label={t(motion?'Pause motion':'Enable motion',motion?'චලන නවත්වන්න':'චලන සක්‍රිය කරන්න')} title={t(motion?'Pause motion':'Enable motion',motion?'චලන නවත්වන්න':'චලන සක්‍රිය කරන්න')}>{motion?<Pause size={16}/>:<Play size={16}/>}</button></div></nav>
 
   <section className="home-section home-partner">
    <div className="reference-container partner-layout">
