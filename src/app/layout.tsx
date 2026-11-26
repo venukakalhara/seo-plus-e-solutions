@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 import './globals.css';
@@ -22,5 +23,5 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const language=(await headers()).get('x-site-language')==='si'?'si':'en';
   const organization={ '@context':'https://schema.org', '@type':'Organization', name:site.name, url:site.url, logo:site.url?`${site.url}/seo-plus-logo.png`:undefined, ...(site.email?{email:site.email}:{}) };
-  return <html lang={language}><body>{site.url&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(organization).replace(/</g,'\\u003c')}}/>}<LanguageProvider language={language}><a className="skip-link" href="#main">Skip to content / අන්තර්ගතයට යන්න</a>{children}</LanguageProvider></body></html>;
+  return <html lang={language}><head><Script src="/browser-compat.js" strategy="beforeInteractive"/></head><body>{site.url&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(organization).replace(/</g,'\\u003c')}}/>}<LanguageProvider language={language}><a className="skip-link" href="#main">Skip to content / අන්තර්ගතයට යන්න</a>{children}</LanguageProvider></body></html>;
 }
