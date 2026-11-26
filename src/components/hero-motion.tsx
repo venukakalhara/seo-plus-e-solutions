@@ -46,13 +46,15 @@ export function HeroMotion({ enabled }: { enabled: boolean }) {
    if(!element||!hero||!image)return;
    const frame=image.getBoundingClientRect(),parent=hero.getBoundingClientRect();
    const scale=Math.max(frame.width/1912,frame.height/823);
-   const [x,y]=getComputedStyle(image).objectPosition.split(' ').map(v=>parseFloat(v)/100);
+   const [x,y]=getComputedStyle(image).objectPosition.split(' ').map(v=>v==='left'||v==='top'?0:v==='right'||v==='bottom'?1:v==='center'?.5:parseFloat(v)/100);
    const width=1912*scale,height=823*scale;
    Object.assign(element.style,{width:`${width}px`,height:`${height}px`,left:`${frame.left-parent.left+(frame.width-width)*(Number.isFinite(x)?x:.5)}px`,top:`${frame.top-parent.top+(frame.height-height)*(Number.isFinite(y)?y:.5)}px`});
   }
   position();const observer=new ResizeObserver(position);observer.observe(hero);observer.observe(image);
   window.addEventListener('resize',position);
-  return()=>{observer.disconnect();window.removeEventListener('resize',position);};
+  image.addEventListener('load',position);
+  window.visualViewport?.addEventListener('resize',position);
+  return()=>{observer.disconnect();window.removeEventListener('resize',position);image.removeEventListener('load',position);window.visualViewport?.removeEventListener('resize',position);};
  },[]);
  useEffect(()=>{
   if(!enabled||!canvas.current)return;
