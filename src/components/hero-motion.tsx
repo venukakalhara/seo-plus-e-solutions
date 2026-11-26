@@ -71,11 +71,11 @@ export function HeroMotion({ enabled }: { enabled: boolean }) {
    const width=1912*scale,height=823*scale;
    Object.assign(element.style,{width:`${width}px`,height:`${height}px`,left:`${frame.left-parent.left+(frame.width-width)*(Number.isFinite(x)?x:.5)}px`,top:`${frame.top-parent.top+(frame.height-height)*(Number.isFinite(y)?y:.5)}px`});
   }
-  position();const observer=new ResizeObserver(position);observer.observe(hero);observer.observe(image);
+  position();const observer=typeof ResizeObserver!=='undefined'?new ResizeObserver(position):null;observer?.observe(hero);observer?.observe(image);
   window.addEventListener('resize',position);
   image.addEventListener('load',position);
   window.visualViewport?.addEventListener('resize',position);
-  return()=>{observer.disconnect();window.removeEventListener('resize',position);image.removeEventListener('load',position);window.visualViewport?.removeEventListener('resize',position);};
+  return()=>{observer?.disconnect();window.removeEventListener('resize',position);image.removeEventListener('load',position);window.visualViewport?.removeEventListener('resize',position);};
  },[]);
  useEffect(()=>{
   if(!enabled||!canvas.current)return;
