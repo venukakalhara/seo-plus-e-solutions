@@ -28,7 +28,7 @@ export function ReferenceHome({motion=false,onToggleMotion}:{motion?:boolean;onT
      <h1><span>{t('Innovative','නවෝත්පාදන')}</span><span className="matched-gold">{t('Digital Solutions','ඩිජිටල් විසඳුම්')}</span><span className="hero-final-line">{t('for a Smarter Tomorrow','සුහුරු හෙට දවසක් සඳහා')}</span></h1>
      <p>{t('At SEO PLUS, we combine technology, creativity and strategy','SEO PLUS හි අපි තාක්ෂණය, නිර්මාණශීලීත්වය සහ උපායමාර්ග එක් කර')}<br className="hero-paragraph-break"/>{t('to help businesses grow, automate and succeed in the digital world.','ව්‍යාපාර ඩිජිටල් ලෝකයේ වර්ධනය කිරීමට, ස්වයංක්‍රීය කිරීමට සහ සාර්ථක වීමට සහාය වෙමු.')}</p>
      <div className="matched-actions"><Link className="button button-gold" href="/services">{t('Our Services','අපගේ සේවා')}<ArrowRight size={19}/></Link><Intro/></div>
-     <Stats/>
+     <Stats motion={motion}/>
     </div>
     <div className="hero-labels" aria-label={t('Our expertise','අපගේ විශේෂඥතාව')}>
      <Link href="/solutions" className="expertise-badge badge-growth"><ChartNoAxesCombined/><span>{t('Business','ව්‍යාපාර')}<br/>{t('Growth','වර්ධනය')}</span></Link>

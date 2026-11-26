@@ -7,20 +7,25 @@ const initial=[28,31,29,37,34,40,46,43,52,48,55,59,54,62,58,67,64,72,68,76];
 export function GrowthChart({motion}:{motion:boolean}) {
  const {t}=useLanguage(); const id=useId().replace(/:/g,'');
  const root=useRef<HTMLElement>(null);const [paused,setPaused]=useState(false);
- const [values,setValues]=useState(initial);const [visible,setVisible]=useState(false);
- useEffect(()=>{const observer=new IntersectionObserver(([entry])=>setVisible(entry.isIntersecting));if(root.current)observer.observe(root.current);return()=>observer.disconnect();},[]);
+ const [values,setValues]=useState(initial);
+ const samples=useRef(initial);const phase=useRef(0);
  useEffect(()=>{
-  if(!motion||paused||!visible)return;
-  let frame=0,previous=0,elapsed=0;let from=initial,to=initial;let tick=0;
-  const animate=(now:number)=>{
-   if(document.hidden){previous=0;frame=requestAnimationFrame(animate);return;}
-   if(previous)elapsed+=Math.min(now-previous,80);previous=now;
-   if(elapsed>=2600){elapsed=0;tick++;from=to;to=[...from.slice(1),Math.round(57+18*Math.sin(tick*.7)+9*Math.cos(tick*1.8))];}
-   const blend=Math.min(elapsed/850,1);const smooth=blend*blend*(3-2*blend);
-   setValues(from.map((v,i)=>v+(to[i]-v)*smooth));frame=requestAnimationFrame(animate);
-  };
-  frame=requestAnimationFrame(animate);return()=>cancelAnimationFrame(frame);
- },[motion,paused,visible]);
+  if(!motion||paused)return;
+  let previous=performance.now(),elapsed=0;
+  let from=samples.current;
+  const next=()=>{phase.current++;return [...from.slice(1),Math.round(58+20*Math.sin(phase.current*.8)+8*Math.cos(phase.current*1.7))];};
+  let to=next();
+  const timer=window.setInterval(()=>{
+   const now=performance.now(),delta=now-previous;previous=now;
+   const box=root.current?.getBoundingClientRect();
+   if(document.hidden||!box||box.bottom<0||box.top>window.innerHeight)return;
+   elapsed+=Math.min(delta,150);
+   const p=Math.min(elapsed/2400,1),smooth=p*p*(3-2*p);
+   samples.current=from.map((v,i)=>v+(to[i]-v)*smooth);setValues(samples.current);
+   if(p===1){from=to;to=next();elapsed=0;}
+  },50);
+  return()=>window.clearInterval(timer);
+ },[motion,paused]);
  const points=values.map((v,i)=>[42+i*24,184-v*1.45]);
  const line=points.map(([x,y],i)=>`${i?'L':'M'}${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
  const last=points[points.length-1];

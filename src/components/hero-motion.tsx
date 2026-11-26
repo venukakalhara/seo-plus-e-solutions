@@ -38,6 +38,27 @@ void main(){
 
 export function HeroMotion({ enabled }: { enabled: boolean }) {
  const layer=useRef<HTMLDivElement>(null);const canvas=useRef<HTMLCanvasElement>(null);
+ // Use actual SVG path lengths instead of normalized CSS dash animation on Safari.
+ // This also keeps the visible light trails independent of WebGL availability.
+ useEffect(()=>{
+  if(!enabled||!layer.current)return;
+  const element=layer.current;
+  const tracks=Array.from(element.querySelectorAll<SVGPathElement>('.orbit-light-track path')).map((path,index)=>{
+   const length=path.getTotalLength();
+   path.removeAttribute('pathLength');path.style.animation='none';
+   path.style.strokeDasharray=`${index%2===0?length*.018:length*.006} ${length}`;
+   return {path,length,index};
+  });
+  let elapsed=0,previous=performance.now();
+  const timer=window.setInterval(()=>{
+   const now=performance.now(),delta=now-previous;previous=now;
+   const box=element.getBoundingClientRect();
+   if(document.hidden||box.bottom<0||box.top>window.innerHeight)return;
+   elapsed+=Math.min(delta,150)/1000;
+   tracks.forEach(({path,length,index})=>{path.style.strokeDashoffset=String(-length*((elapsed/(12+Math.floor(index/2)*3)+Math.floor(index/2)*.27)%1));});
+  },50);
+  return()=>{window.clearInterval(timer);};
+ },[enabled]);
  useEffect(()=>{
   const element=layer.current;const hero=element?.closest<HTMLElement>('.matched-hero');
   const image=hero?.querySelector<HTMLImageElement>('.matched-hero-art');
