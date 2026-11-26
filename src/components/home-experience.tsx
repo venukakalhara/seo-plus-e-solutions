@@ -13,15 +13,11 @@ import { posts } from '@/lib/content';
 
 export function HomeExperience() {
  const {t}=useLanguage();const root=useRef<HTMLDivElement>(null);
- const [motion,setMotion]=useState(false);
- const [motionOverride,setMotionOverride]=useState(false);
- function toggleMotion(){setMotionOverride(true);setMotion(value=>!value);}
- useEffect(()=>{
-  const preference=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const update=()=>setMotion(!preference.matches);update();
-  if(preference.addEventListener){preference.addEventListener('change',update);return()=>preference.removeEventListener('change',update);}
-  preference.addListener(update);return()=>preference.removeListener(update);
- },[]);
+ // Autoplay is the requested site default on mobile and desktop.
+ // Keep the visible pause controls authoritative for the current visit.
+ const [motion,setMotion]=useState(true);
+ const motionOverride=true;
+ function toggleMotion(){setMotion(value=>!value);}
  useEffect(()=>{
   const elements=Array.from(root.current?.querySelectorAll<HTMLElement>('[data-reveal]')||[]);
   if(!motion||!('IntersectionObserver' in window))return;
